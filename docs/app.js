@@ -2,6 +2,45 @@
   const cfg = window.SITE || {};
   document.documentElement.classList.add('js');
 
+  // Logos des technologies (devicon). Un seul endroit à corriger si une adresse change.
+  // Si une icône ne se charge pas, elle disparaît : le libellé texte reste seul.
+  // On sert d'abord les fichiers locaux (docs/icons/<clé>.svg) ; si l'un manque,
+  // on retombe sur le CDN devicon ; si ça échoue aussi, l'icône disparaît et
+  // seul le libellé texte reste. Jamais d'image cassée.
+  const ICON_LOCAL = 'icons/';
+  const ICON_CDN = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/';
+  const ICONS = {
+    java: 'java/java-original',
+    spring: 'spring/spring-original',
+    angular: 'angular/angular-original',
+    ts: 'typescript/typescript-original',
+    postgres: 'postgresql/postgresql-original',
+    docker: 'docker/docker-original',
+    maven: 'maven/maven-original',
+    gha: 'githubactions/githubactions-original',
+    junit: 'junit/junit-original',
+  };
+  document.querySelectorAll('[data-ic]').forEach((el) => {
+    const frag = document.createDocumentFragment();
+    el.dataset.ic.split(/\s+/).filter(Boolean).forEach((key) => {
+      if (!ICONS[key]) return;
+      const img = document.createElement('img');
+      img.className = 'ic';
+      img.alt = '';
+      img.width = 20;
+      img.height = 20;
+      img.loading = 'lazy';
+      let tried = 0;
+      img.addEventListener('error', () => {
+        if (tried === 0) { tried = 1; img.src = `${ICON_CDN}${ICONS[key]}.svg`; }
+        else img.remove();
+      });
+      img.src = `${ICON_LOCAL}${key}.svg`;
+      frag.appendChild(img);
+    });
+    if (frag.childNodes.length) el.prepend(frag);
+  });
+
   // Liens de contact et de code : n'afficher que ce qui mène à une page réelle.
   document.querySelectorAll('[data-link]').forEach((a) => {
     const key = a.dataset.link;

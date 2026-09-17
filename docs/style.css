@@ -169,7 +169,9 @@ pre code {
 .hero__copy > p:not(.lead):not(.kicker) { color: var(--muted); max-width: 46ch; margin: 0 0 28px; }
 
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 34px; }
-.code-links { display: contents; }
+/* Les deux boutons « code » forment toujours une deuxième ligne, ensemble. */
+.code-links { display: flex; gap: 12px; flex-wrap: wrap; flex-basis: 100%; }
+.code-links[hidden] { display: none; }
 
 .btn {
   display: inline-flex; align-items: center; gap: 9px;
@@ -184,6 +186,13 @@ pre code {
 .btn--ghost { border-color: var(--rule); color: var(--ink); background: transparent; }
 .btn--ghost:hover { border-color: var(--ink); background: var(--ink); color: var(--paper); transform: translateY(-2px); }
 
+/* Logos dans les boutons : ils disent ce qu'il y a dans le dépôt. */
+.ic { display: block; flex: none; }
+.btn .ic { width: 17px; height: 17px; margin-right: -3px; transition: transform .18s; }
+.btn .ic + .ic { margin-left: -5px; margin-right: 0; }
+.btn:hover .ic { transform: scale(1.12); }
+.btn--ghost:hover .ic { filter: drop-shadow(0 0 5px rgba(247, 244, 237, .7)); }
+
 /* Faits du hero : un petit tableau à filets, pas des cartes. */
 .hero__facts {
   list-style: none; margin: 0; padding: 0;
@@ -196,7 +205,9 @@ pre code {
   border-bottom: 1px solid var(--rule);
   font-size: .82rem; color: var(--muted);
   font-family: var(--mono); letter-spacing: .01em;
+  display: flex; align-items: flex-start; gap: 11px;
 }
+.hero__facts .ic { width: 22px; height: 22px; margin-top: 3px; flex: none; }
 .hero__facts li:nth-child(odd) { padding-right: 18px; border-right: 1px solid var(--rule); }
 .hero__facts li:nth-child(even) { padding-left: 18px; }
 .hero__facts b {
@@ -251,16 +262,14 @@ pre code {
   text-transform: uppercase; color: var(--muted); margin: 0; flex: none;
 }
 .techs ul { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: clamp(14px, 2.4vw, 30px); margin: 0; padding: 0; }
-.techs li { display: flex; align-items: center; gap: 8px; }
-.techs img {
-  width: 24px; height: 24px;
-  filter: grayscale(1) contrast(.5) brightness(.9);
-  opacity: .62;
-  transition: filter .3s, opacity .3s, transform .3s;
+.techs li { display: flex; align-items: center; gap: 9px; }
+.techs .ic {
+  width: 26px; height: 26px;
+  transition: transform .3s ease, filter .3s;
 }
-.techs li:hover img { filter: none; opacity: 1; transform: translateY(-2px) scale(1.08); }
+.techs li:hover .ic { transform: translateY(-3px) scale(1.1); filter: drop-shadow(0 4px 8px rgba(23, 20, 15, .22)); }
 .techs span {
-  font-family: var(--mono); font-size: .69rem; color: var(--muted);
+  font-family: var(--mono); font-size: .7rem; color: var(--muted);
   transition: color .3s;
 }
 .techs li:hover span { color: var(--ink); }
