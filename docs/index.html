@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auto Stock Management — Cheikh Ali Cheikh</title>
+<meta name="description" content="Application de gestion de stock développée pour un magasin de pièces détachées : Java 17, Spring Boot, Angular, PostgreSQL. Démonstration vidéo et choix techniques.">
+<meta property="og:title" content="Auto Stock Management — Cheikh Ali Cheikh">
+<meta property="og:description" content="Stock, ventes à crédit et créances d’un magasin de pièces détachées. Java · Spring Boot · Angular · PostgreSQL.">
+<meta property="og:image" content="video/poster.jpg">
+<meta name="theme-color" content="#14213a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2314213a'/%3E%3Ctext x='16' y='21' font-family='Arial' font-weight='700' font-size='13' fill='white' text-anchor='middle'%3EAS%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<script src="config.js" defer></script>
+<script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<header class="topbar">
+  <div class="wrap topbar__inner">
+    <a class="brand" href="#top" aria-label="Retour en haut">
+      <span class="brand__mark" aria-hidden="true">CA</span>
+      <span class="brand__text"><strong>Cheikh Ali Cheikh</strong><small>Développeur Java · Angular</small></span>
+    </a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="#demo">Démo</a>
+      <a href="#fonctions">Fonctions</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#qualite">Tests</a>
+      <a href="#statut">Statut</a>
+    </nav>
+    <a class="topbar__cta" href="#demo">Voir la démo</a>
+  </div>
+  <div class="progress" aria-hidden="true"><span></span></div>
+</header>
+
+<main id="contenu">
+
+<section class="hero" id="top">
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <p class="kicker">Projet client · pièces détachées automobiles</p>
+      <h1>Auto Stock<br>Management</h1>
+      <p class="lead">Une application web qui relie ce qui entre en stock, ce qui est vendu et ce qui reste à encaisser.</p>
+      <p>Je l’ai conçue et développée pour un magasin de pièces détachées : API Java / Spring Boot, interface Angular, base PostgreSQL. Elle a été déployée sur un VPS OVHcloud ; la démonstration ci-dessous tourne en local avec des données fictives.</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#demo">Regarder la démo <span class="muted">3 min 30</span></a>
+        <span class="code-links" data-when-public hidden>
+          <a class="btn btn--ghost" data-repo="backend">Code backend</a>
+          <a class="btn btn--ghost" data-repo="frontend">Code frontend</a>
+        </span>
+      </div>
+      <ul class="hero__facts">
+        <li><b>Java 17</b> Spring Boot 3.5</li>
+        <li><b>Angular 20</b> TypeScript 5.9</li>
+        <li><b>PostgreSQL</b> Flyway · 17 migrations</li>
+        <li><b>474</b> tests backend</li>
+      </ul>
+    </div>
+    <figure class="hero__shot browser" data-tilt>
+      <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span>localhost:4200/dashboard</span></div>
+      <img src="images/tableau-de-bord.webp" width="1600" height="900" alt="Tableau de bord d’Auto Stock : ventes du jour, créances ouvertes, produits sous le seuil et activité récente.">
+    </figure>
+  </div>
+</section>
+
+<section class="band" aria-label="Le besoin">
+  <div class="wrap flow">
+    <p class="flow__intro">Dans ce magasin, une vente ne s’arrête pas à l’encaissement : une pièce peut être en surface ou en réserve, un client peut payer une partie et revenir plus tard.</p>
+    <ol class="flow__steps" data-reveal-group>
+      <li><span>01</span><b>Réceptionner</b><small>saisie ou import CSV</small></li>
+      <li><span>02</span><b>Ranger</b><small>surface · réserve</small></li>
+      <li><span>03</span><b>Vendre</b><small>comptant ou crédit</small></li>
+      <li><span>04</span><b>Suivre</b><small>créance et remboursements</small></li>
+      <li><span>05</span><b>Piloter</b><small>tableau de bord</small></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="demo">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="kicker">Démonstration</p>
+      <h2>L’application, de la connexion au tableau de bord.</h2>
+      <p>Enregistrement continu d’un vrai parcours dans le navigateur, en mode clair. Sans voix : des légendes décrivent chaque étape. Toutes les données sont fictives.</p>
+    </header>
+    <div class="player">
+      <div class="player__screen">
+        <video id="demo-video" controls playsinline preload="metadata" poster="video/poster.jpg" width="1600" height="900">
+          <source src="video/auto-stock-demo.mp4" type="video/mp4">
+          <source src="video/auto-stock-demo.webm" type="video/webm">
+          Votre navigateur ne lit pas cette vidéo. <a href="video/auto-stock-demo.mp4">Télécharger le MP4</a>.
+        </video>
+      </div>
+      <aside class="chapters" aria-label="Chapitres de la vidéo">
+        <p class="chapters__title">Chapitres <small>cliquer pour aller à l’étape</small></p>
+        <ol id="chapters">
+          <li><button data-t="0"><time>0:00</time>Connexion</button></li>
+          <li><button data-t="11"><time>0:11</time>Tableau de bord</button></li>
+          <li><button data-t="19"><time>0:19</time>Recherche tolérante aux fautes</button></li>
+          <li><button data-t="31"><time>0:31</time>Catalogue et pagination</button></li>
+          <li><button data-t="46"><time>0:46</time>Réception manuelle</button></li>
+          <li><button data-t="62"><time>1:02</time>Import CSV vérifié</button></li>
+          <li><button data-t="82"><time>1:22</time>Vente à crédit</button></li>
+          <li><button data-t="112"><time>1:52</time>Historique des ventes</button></li>
+          <li><button data-t="117"><time>1:57</time>Transfert réserve → surface</button></li>
+          <li><button data-t="133"><time>2:13</time>Historique des mouvements</button></li>
+          <li><button data-t="138"><time>2:18</time>Créances et remboursement</button></li>
+          <li><button data-t="158"><time>2:38</time>Équipe et accès</button></li>
+          <li><button data-t="173"><time>2:53</time>Familles de pièces</button></li>
+          <li><button data-t="184"><time>3:04</time>Tableau de bord actualisé</button></li>
+        </ol>
+      </aside>
+    </div>
+    <p class="note">Enregistré le 17 septembre 2026 avec Playwright sur l’application réelle (API Spring Boot + interface Angular + PostgreSQL), à partir d’un jeu de données fictif. <a href="video/auto-stock-demo.mp4" download>Télécharger la vidéo (MP4, 9 Mo)</a></p>
+  </div>
+</section>
+
+<section class="section section--alt" id="fonctions">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="kicker">Fonctionnalités</p>
+      <h2>Ce que l’application permet de faire.</h2>
+      <p>Chaque écran ci-dessous est une capture de l’application lancée localement.</p>
+    </header>
+
+    <div class="tour">
+      <div class="tour__tabs" role="tablist" aria-label="Écrans de l’application">
+        <button role="tab" id="tab-catalogue" aria-controls="panel-tour" aria-selected="true" data-shot="catalogue" data-alt="Catalogue paginé avec prix, stock global et seuil par référence.">
+          <b>Catalogue</b><small>recherche, pagination, seuils</small>
+        </button>
+        <button role="tab" id="tab-import" aria-controls="panel-tour" aria-selected="false" data-shot="import-csv" data-alt="Aperçu d’un import CSV : trois nouveaux produits, lignes validées avant confirmation.">
+          <b>Réception CSV</b><small>aperçu avant import</small>
+        </button>
+        <button role="tab" id="tab-vente" aria-controls="panel-tour" aria-selected="false" data-shot="vente" data-alt="Vente à crédit : panier de deux articles, client sélectionné, 20 000 FCFA payés et 32 000 FCFA restant dus.">
+          <b>Vente à crédit</b><small>panier, client, acompte</small>
+        </button>
+        <button role="tab" id="tab-creances" aria-controls="panel-tour" aria-selected="false" data-shot="creances" data-alt="Liste des créances avec ancienneté et créance en retard.">
+          <b>Créances</b><small>ancienneté, retards</small>
+        </button>
+        <button role="tab" id="tab-detail" aria-controls="panel-tour" aria-selected="false" data-shot="creance-detail" data-alt="Détail d’une créance : vente d’origine, versements et solde restant.">
+          <b>Remboursements</b><small>versements successifs</small>
+        </button>
+        <button role="tab" id="tab-mouvements" aria-controls="panel-tour" aria-selected="false" data-shot="mouvements" data-alt="Journal des mouvements : réceptions, ventes et transferts regroupés par opération.">
+          <b>Mouvements</b><small>journal par opération</small>
+        </button>
+        <button role="tab" id="tab-equipe" aria-controls="panel-tour" aria-selected="false" data-shot="utilisateurs" data-alt="Gestion de l’équipe : propriétaire et vendeurs, statut des comptes.">
+          <b>Équipe</b><small>rôles et accès</small>
+        </button>
+      </div>
+      <figure class="tour__view browser" id="panel-tour" role="tabpanel" aria-labelledby="tab-catalogue">
+        <div class="browser__bar" aria-hidden="true"><i></i><i></i><i></i><span id="tour-url">localhost:4200/products</span><a id="tour-zoom" class="zoom" href="images/catalogue.webp" target="_blank" rel="noopener">Agrandir ↗</a></div>
+        <img id="tour-img" src="images/catalogue.webp" width="1600" height="900" loading="lazy" alt="Catalogue paginé avec prix, stock global et seuil par référence.">
+      </figure>
+    </div>
+
+    <div class="features" data-reveal-group>
+      <article>
+        <h3>Catalogue et recherche</h3>
+        <p>Recherche par nom ou référence, tolérante aux fautes de frappe et aux accents (PostgreSQL <code>pg_trgm</code> + <code>unaccent</code>). Pagination côté serveur, fiche produit avec stock par emplacement.</p>
+      </article>
+      <article>
+        <h3>Réceptions</h3>
+        <p>Saisie manuelle d’un produit nouveau ou existant, répartie entre surface et réserve. Import CSV jusqu’à 500 lignes : modèle, aperçu ligne par ligne, sélection, rapport téléchargeable.</p>
+      </article>
+      <article>
+        <h3>Ventes</h3>
+        <p>Panier multi-articles, prélèvement du stock par emplacement, refus si le stock est insuffisant. Paiement complet ou partiel rattaché à un client.</p>
+      </article>
+      <article>
+        <h3>Créances</h3>
+        <p>Solde calculé à partir du journal des versements, ancienneté et retard, remboursements successifs avec historique.</p>
+      </article>
+      <article>
+        <h3>Stock et historique</h3>
+        <p>Transferts entre réserve et surface, seuils d’alerte, journal des entrées, sorties et transferts regroupés par opération.</p>
+      </article>
+      <article>
+        <h3>Accès</h3>
+        <p>Rôles propriétaire et vendeur, mot de passe temporaire à changer à la première connexion, désactivation des comptes, familles de pièces.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="architecture">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="kicker">Architecture</p>
+      <h2>Un domaine métier qui ne dépend pas du framework.</h2>
+      <p>Le backend est un seul déployable découpé en trois modules Maven. Les règles de vente et de paiement se testent sans démarrer Spring ni la base.</p>
+    </header>
+
+    <div class="arch">
+      <figure class="arch__diagram" aria-labelledby="arch-cap">
+        <svg viewBox="0 0 560 420" role="img" aria-label="Schéma : l’infrastructure dépend de l’application, qui dépend du domaine.">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker>
+          </defs>
+          <g class="ring ring--infra">
+            <rect x="10" y="10" width="540" height="400" rx="18"/>
+            <text x="30" y="42" class="ring__title">stock-infrastructure</text>
+            <text x="30" y="62" class="ring__sub">Spring Boot · REST · Security · JPA · Flyway</text>
+          </g>
+          <g class="ring ring--app">
+            <rect x="80" y="90" width="400" height="250" rx="14"/>
+            <text x="100" y="120" class="ring__title">stock-application</text>
+            <text x="100" y="140" class="ring__sub">cas d’usage · ports · transactions</text>
+          </g>
+          <g class="ring ring--domain">
+            <rect x="160" y="170" width="240" height="120" rx="12"/>
+            <text x="280" y="215" text-anchor="middle" class="ring__title">stock-domain</text>
+            <text x="280" y="238" text-anchor="middle" class="ring__sub">Sale · Product · Money</text>
+            <text x="280" y="258" text-anchor="middle" class="ring__sub">StorageLocation · règles</text>
+          </g>
+          <g class="adapters">
+            <text x="95" y="382" text-anchor="middle" class="chip">contrôleurs REST</text>
+            <text x="280" y="382" text-anchor="middle" class="chip">adaptateurs JPA / SQL</text>
+            <text x="465" y="382" text-anchor="middle" class="chip">transactions Spring</text>
+          </g>
+          <path class="dep" d="M280 366 L280 344" marker-end="url(#arrow)"/>
+          <path class="dep" d="M280 318 L280 292" marker-end="url(#arrow)"/>
+        </svg>
+        <figcaption id="arch-cap">Les dépendances Maven vont de l’extérieur vers le centre. Les modules domaine et application n’ont aucune dépendance de production à Spring ou JPA ; l’infrastructure implémente leurs ports.</figcaption>
+      </figure>
+
+      <div class="arch__code">
+        <p class="code__label"><span>RecordPaymentUseCase.java</span><span class="muted">stock-application</span></p>
+<pre><code><span class="c">// Verrou exclusif sur la vente : deux encaissements
+// simultanés ne peuvent pas lire le même ancien solde.</span>
+<span class="k">private</span> RecordPaymentResult <span class="f">doRecord</span>(
+        RecordPaymentCommand command) {
+    Sale sale = saleRepository
+            .<span class="f">findByIdForUpdate</span>(command.saleId())
+            .orElseThrow(() -&gt;
+                    <span class="k">new</span> SaleNotFoundException(command.saleId()));
+
+    Payment payment = sale.<span class="f">recordPayment</span>(
+            command.amount(),
+            command.receivedBy(),
+            LocalDateTime.now(clock));
+
+    saleRepository.save(sale);
+    ...
+}</code></pre>
+        <p class="code__caption">Le cas d’usage s’exécute dans un <code>TransactionRunner</code> (port) ; l’agrégat <code>Sale</code> refuse un versement si la vente est soldée ou si le montant dépasse le reste dû. Le commentaire est ajouté pour cette page.</p>
+      </div>
+    </div>
+
+    <div class="why">
+      <h3>Pourquoi le DDD sur un domaine de cette taille&nbsp;?</h3>
+      <div class="why__grid">
+        <p>Le domaine est modeste : une architecture en couches classique aurait suffi pour livrer. J’ai choisi le DDD tactique et l’architecture hexagonale <b>en connaissance de cause</b>, aussi pour pratiquer sur un vrai besoin client ce que j’étudiais en master.</p>
+        <dl>
+          <div><dt>Ce que j’y gagne</dt><dd>Les règles sensibles (reste dû, crédit sans client, stock insuffisant) sont écrites une seule fois et testées sans Spring.</dd></div>
+          <div><dt>Ce que ça coûte</dt><dd>Plus de classes et de mappings qu’une application CRUD. En équipe sur un projet plus simple, je commencerais par des couches classiques.</dd></div>
+          <div><dt>Ce que je n’ai pas fait</dt><dd>Pas de DDD stratégique (plusieurs contextes délimités) : le domaine ne le justifie pas.</dd></div>
+        </dl>
+      </div>
+      <p class="why__adr" data-when-public hidden>Chaque décision est documentée dans une fiche ADR : <a data-code-link="backend:docs/adr/README.md">lire les 6 décisions d’architecture</a>.</p>
+    </div>
+
+    <h3 class="subhead">Choix techniques</h3>
+    <div class="decisions" data-reveal-group>
+      <article>
+        <h4>Un monolithe modulaire</h4>
+        <p>Vente, stock et paiements changent ensemble : une seule base PostgreSQL et une transaction suffisent, sans transactions distribuées. Les modules séparent les responsabilités à la compilation.</p>
+        <p class="ref" data-code="backend:pom.xml">pom.xml</p>
+      </article>
+      <article>
+        <h4>Un solde jamais stocké deux fois</h4>
+        <p>Le montant payé est recalculé à partir du journal des versements. <code>Money</code> associe un <code>BigDecimal</code> à une devise et refuse les opérations entre devises.</p>
+        <p class="ref" data-code="backend:stock-domain/src/main/java/com/aliCheikh/stock/domain/model/sale/Sale.java">Sale.java</p>
+      </article>
+      <article>
+        <h4>Concurrence traitée selon le risque</h4>
+        <p>Verrou optimiste (<code>@Version</code>) sur les emplacements de stock, verrou pessimiste pour les remboursements, clé <code>Idempotency-Key</code> pour rejouer sans doublon une vente, une réception ou un transfert.</p>
+        <p class="ref" data-code="backend:stock-infrastructure/src/main/java/com/aliCheikh/stock/infrastructure/web/filter/IdempotencyFilter.java">IdempotencyFilter.java</p>
+      </article>
+      <article>
+        <h4>Sessions dans des cookies HttpOnly</h4>
+        <p>JWT d’accès de 15 minutes et jeton de renouvellement de 7 jours dont seule l’empreinte SHA-256 est stockée. Cookies <code>HttpOnly</code> et <code>SameSite=Strict</code>, mots de passe BCrypt.</p>
+        <p class="ref" data-code="backend:stock-infrastructure/src/main/java/com/aliCheikh/stock/infrastructure/web/controller/AuthController.java">AuthController.java</p>
+      </article>
+      <article>
+        <h4>Erreurs exploitables par l’interface</h4>
+        <p>Les exceptions métier deviennent des réponses <code>ProblemDetail</code> (RFC 9457) avec un code stable, que l’interface Angular traduit en messages clairs.</p>
+        <p class="ref" data-code="backend:stock-infrastructure/src/main/java/com/aliCheikh/stock/infrastructure/web/handler">web/handler</p>
+      </article>
+      <article>
+        <h4>Une interface Angular par fonctionnalité</h4>
+        <p>Composants standalone, formulaires réactifs et signals. Des intercepteurs renouvellent la session après un 401 ; une garde protège un import CSV en cours.</p>
+        <p class="ref" data-code="frontend:src/app/core/auth/refresh.interceptor.ts">refresh.interceptor.ts</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="qualite">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="kicker">Tests</p>
+      <h2>Tester chaque risque au bon niveau.</h2>
+      <p>Rapports Maven Surefire du 17 septembre 2026 : 474 tests exécutés, aucun échec, aucune erreur, aucun test ignoré.</p>
+    </header>
+    <div class="tests">
+      <div class="tests__bar" role="img" aria-label="Répartition : 100 tests domaine, 126 tests application, 248 tests infrastructure.">
+        <span style="--w:100" class="t-domain"></span>
+        <span style="--w:126" class="t-app"></span>
+        <span style="--w:248" class="t-infra"></span>
+      </div>
+      <dl class="tests__legend">
+        <div class="t-domain"><dt><b data-count="100">100</b> domaine</dt><dd>Invariants des agrégats et objets-valeurs, en Java pur.</dd></div>
+        <div class="t-app"><dt><b data-count="126">126</b> application</dt><dd>Orchestration des cas d’usage avec des doublures des ports.</dd></div>
+        <div class="t-infra"><dt><b data-count="248">248</b> infrastructure</dt><dd>Contrats HTTP et autorisations (MockMvc), migrations, contraintes SQL et transactions sur PostgreSQL via Testcontainers.</dd></div>
+      </dl>
+    </div>
+    <ul class="checks">
+      <li>Exemple : un échec après la création d’un produit annule aussi cette création (<span class="ref-inline" data-code="backend:stock-infrastructure/src/test/java/com/aliCheikh/stock/infrastructure/persistence/ReceiveStockAtomicityTest.java">ReceiveStockAtomicityTest</span>).</li>
+      <li>Frontend : 39 fichiers de tests Jasmine / Karma (pages, gardes, intercepteurs, services).</li>
+      <li>Travail par branches et pull requests : 34 PR fusionnées côté backend, 36 côté frontend.</li>
+      <li>CI GitHub Actions sur chaque pull request : <code>mvn verify</code> côté backend, build et tests côté frontend.</li>
+      <li>Pas encore de tests de bout en bout dans le navigateur : la vidéo ci-dessus a été produite avec Playwright, mais ce n’est pas une suite de tests.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="stack">
+  <div class="wrap">
+    <header class="section__head section__head--row">
+      <div>
+        <p class="kicker">Stack</p>
+        <h2>Versions vérifiées dans le code.</h2>
+      </div>
+    </header>
+    <div class="stack">
+      <dl>
+        <dt>Backend</dt>
+        <dd>Java 17 · Spring Boot 3.5.13 (Web, Security, Data JPA) · Flyway · JJWT 0.12.6 · Commons CSV 1.14.1</dd>
+        <dt>Frontend</dt>
+        <dd>Angular 20.3 · TypeScript 5.9 · RxJS 7.8 · SCSS</dd>
+        <dt>Données</dt>
+        <dd>PostgreSQL (17 en local, 16 dans les tests) · 17 migrations Flyway · <code>pg_trgm</code>, <code>unaccent</code>, index GIN</dd>
+        <dt>Tests</dt>
+        <dd>JUnit 5 · AssertJ · Mockito · MockMvc · Testcontainers · Jasmine / Karma</dd>
+        <dt>Livraison</dt>
+        <dd>Dockerfiles multi-étapes · Nginx · Docker Compose · Caddy (HTTPS) · GitHub Actions</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="section section--ink" id="statut">
+  <div class="wrap statut">
+    <div>
+      <p class="kicker">Statut du projet</p>
+      <h2>Ce qui est vrai aujourd’hui.</h2>
+    </div>
+    <ul>
+      <li><b>Développée pour un client</b> du secteur des pièces détachées : conception, backend, interface et mise en production.</li>
+      <li><b>Déployée par le passé</b> sur un VPS OVHcloud que j’ai financé (Docker Compose, Caddy, déploiement par GitHub Actions). Ce serveur n’est plus actif.</li>
+      <li><b>Aucune instance en ligne aujourd’hui.</b> Cette page présente le projet et une démonstration enregistrée en local, avec des données fictives.</li>
+      <li><b>Limites connues :</b> un seul magasin, pas de tests de bout en bout automatisés, événements publiés dans le processus uniquement.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div>
+      <strong>Cheikh Ali Cheikh</strong>
+      <p>Étudiant en M2 Informatique, parcours Architectures Logicielles (ALMA), Nantes Université. Je recherche un stage de fin d’études de six mois à partir de janvier 2027, en Java / Spring Boot / Angular.</p>
+    </div>
+    <ul class="footer__links" id="contact">
+      <li><a data-link="github">GitHub</a></li>
+      <li data-optional="linkedin" hidden><a data-link="linkedin">LinkedIn</a></li>
+      <li data-optional="email" hidden><a data-link="email">E-mail</a></li>
+      <li data-when-public hidden><a data-repo="backend">Dépôt backend</a></li>
+      <li data-when-public hidden><a data-repo="frontend">Dépôt frontend</a></li>
+    </ul>
+  </div>
+  <p class="wrap footer__small">Captures et vidéo : application exécutée localement avec des données fictives. <a href="#top">Retour en haut ↑</a></p>
+</footer>
+</body>
+</html>

@@ -1,2 +1,0 @@
-Pillow>=10,<13
-imageio-ffmpeg==0.6.0

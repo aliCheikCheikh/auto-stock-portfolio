@@ -1,0 +1,35 @@
+reference;nom_produit;categorie;prix_unitaire_xaf;seuil_alerte;quantite_surface;quantite_reserve
+FLT-AIR-1042;Filtre à air Hilux 2.5;Filtration;6500;5;8;12
+FLT-HUI-2210;Filtre à huile Corolla;Filtration;4500;6;10;20
+FLT-CAR-3105;Filtre à carburant Land Cruiser;Filtration;8000;4;5;10
+FLT-HAB-1120;Filtre d'habitacle Yaris;Filtration;5500;3;4;6
+FRN-PLQ-4401;Plaquettes avant Hilux;Freinage;12000;6;6;14
+FRN-DSQ-4410;Disque de frein avant Corolla;Freinage;22000;4;2;0
+FRN-LIQ-4420;Liquide de frein DOT4 1 L;Freinage;3500;8;12;24
+FRN-MAC-4431;Mâchoires arrière Land Cruiser;Freinage;15000;3;4;6
+EMB-KIT-5501;Kit embrayage Hilux;Embrayage;75000;2;2;3
+EMB-BUT-5510;Butée d'embrayage Corolla;Embrayage;18000;3;3;5
+MOT-CRR-6601;Courroie d'accessoires Prado;Moteur;9000;4;6;8
+MOT-JNT-6610;Joint de culasse 1KZ;Moteur;16000;2;1;0
+MOT-BGI-6620;Bougie d'allumage iridium;Moteur;3000;10;20;40
+MOT-PMP-6630;Pompe à huile Hilux;Moteur;38000;2;2;2
+TRN-CRD-7701;Cardan avant gauche Corolla;Transmission;55000;2;2;2
+TRN-SFL-7710;Soufflet de cardan;Transmission;5000;5;8;10
+SUS-AMO-8801;Amortisseur avant Hilux;Suspension;45000;4;4;6
+SUS-RSS-8810;Ressort de suspension arrière;Suspension;27000;2;2;4
+SUS-SIL-8820;Silentbloc de triangle;Suspension;6000;6;10;12
+DIR-ROT-9901;Rotule de direction Prado;Direction;14000;4;5;6
+DIR-BIE-9910;Biellette de barre stabilisatrice;Direction;11000;4;3;6
+ELC-BAT-1301;Batterie 12 V 70 Ah;Electrique;65000;3;3;4
+ELC-AMP-1310;Ampoule phare H4;Electrique;2500;15;25;40
+ELC-FUS-1320;Assortiment de fusibles;Electrique;2000;10;15;20
+ELC-ALT-1330;Alternateur reconditionné Hilux;Electrique;120000;1;1;1
+PNE-265-1401;Pneu 265/65 R17;Pneumatique;48000;4;4;12
+PNE-195-1410;Pneu 195/65 R15;Pneumatique;35000;4;6;10
+REF-THR-1501;Thermostat moteur Corolla;Refroidissement;12000;3;4;4
+REF-DUR-1510;Durite supérieure de radiateur;Refroidissement;7000;4;5;6
+REF-RAD-1520;Radiateur Hilux;Refroidissement;95000;1;1;1
+ECH-COL-1601;Collier d'échappement 50 mm;Echappement;4000;6;10;10
+ECH-SIL-1610;Silencieux arrière Corolla;Echappement;42000;2;1;2
+HYD-HUI-1701;Huile hydraulique 1 L;Hydraulique;5000;6;10;14
+HYD-PMP-1710;Pompe de direction assistée;Hydraulique;68000;1;1;1

@@ -1,2 +1,4 @@
 .sites-runtime/
 .DS_Store
+scripts/demo/out/
+__pycache__/
